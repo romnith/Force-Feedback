@@ -1,3 +1,7 @@
+#include <SoftwareSerial.h>
+#include <SerialCommand.h>
+SerialCommand sCmd;
+
 #include <Servo.h>
 
 // Variable declarations
@@ -7,12 +11,18 @@ int servoAngle = 90;
 
 void setup() {
   Serial.begin(9600);        // set up Serial library at 9600 bps
-
   myServo.attach(servoPin);
+  
+  while (!Serial);
+  
+  //sCmd.addCommand("PING", pingHandler);
+
+  
 }
 
 void loop() {
   if (Serial.available() > 0){
+    //sCmd.readSear
     servoAngle = Serial.parseInt();
 
     if (servoAngle == 300){
