@@ -108,19 +108,21 @@ public class MotiveDirect : MonoBehaviour {
 	private const int MAX_PAYLOADSIZE =             100000;
 	private const int SOCKET_BUFSIZE = 0x100000;
 
+    // Custom variables:
+    int ulmIndex = 0;
+    Vector3 marker0, marker1;
 
 
+    //
+    // NatNet packet format 
+    //
 
-	//
-	// NatNet packet format 
-	//
+    // sPacket struct (PacketClient.cpp:65)
+    //  - iMessage (unsigned short),
+    //  - nDataBytes (unsigned short),
+    // - union of possible payloads (MAX_PAYLOADSIZE bytes)
 
-	// sPacket struct (PacketClient.cpp:65)
-	//  - iMessage (unsigned short),
-	//  - nDataBytes (unsigned short),
-	// - union of possible payloads (MAX_PAYLOADSIZE bytes)
-
-	struct PACKET_HEADER_FORMAT{
+    struct PACKET_HEADER_FORMAT{
 		public ushort iMessage;
 		public ushort nDataBytes;
 	}
@@ -204,6 +206,13 @@ public class MotiveDirect : MonoBehaviour {
 		public bool point_cloud_solved;
 		public bool model_solved;
 	}
+
+    // Custom struct for unlabeled Markers
+    struct UnlabeledMarker
+    {
+        public int id;
+        public Vector3 position;
+    }
 
 
 	// frame payload format (PacketClient.cpp:537) cannot be unpacked by
@@ -525,8 +534,41 @@ public class MotiveDirect : MonoBehaviour {
                     {
                         mkTransform.tag = "untracked";
                     }
+
+                    //Debug.Log(msg.other_markers.Capacity);
+                    //Debug.Log(msg.other_markers.);
+                    //Debug.Log(msg.other_markers.Count);
+
+
+                    // Reset index counter
+                    ulmIndex = 0;
+
+                    // Unlabeled markers: 
+                    foreach (Vector3 ulm in msg.other_markers)
+                    {
+                        if(ulmIndex == 0)
+                        {
+                            marker0 = ulm;
+                        }
+                        else
+                        {
+                            marker1 = ulm;
+                        }
+                        //Debug.Log(ulm.GetType());
+                        Debug.Log("Marker #" + ulmIndex + ": " + ulm.ToString());
+                        //Debug.Log(ulm.x);
+                        //Debug.Log(ulm);
+                        //Debug.Log(ulm.position);
+
+                        // Update index for next marker
+                        ulmIndex++;
+                    }
+
+                    Debug.Log("Distance: " + Vector3.Distance(marker0, marker1));
+
                     foreach (LabeledMarker lmk in msg.labeled_markers)
                     {
+                        //Debug.Log(lmk);
                         int setID = HighWord(lmk.id);
                         int mkID = LowWord(lmk.id);
                         if (setID != 0) continue; //skip markers that are already included in rigidbodies/skeletons/marker sets.
