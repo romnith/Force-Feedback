@@ -109,8 +109,9 @@ public class MotiveDirect : MonoBehaviour {
 	private const int SOCKET_BUFSIZE = 0x100000;
 
     // Custom variables:
-    int ulmIndex = 0;
+    private int ulmIndex = 0;
     Vector3 marker0, marker1;
+    public static float markerDistance = 0f;
 
 
     //
@@ -555,7 +556,7 @@ public class MotiveDirect : MonoBehaviour {
                             marker1 = ulm;
                         }
                         //Debug.Log(ulm.GetType());
-                        Debug.Log("Marker #" + ulmIndex + ": " + ulm.ToString());
+                        //Debug.Log("Marker #" + ulmIndex + ": " + ulm.ToString());
                         //Debug.Log(ulm.x);
                         //Debug.Log(ulm);
                         //Debug.Log(ulm.position);
@@ -564,7 +565,9 @@ public class MotiveDirect : MonoBehaviour {
                         ulmIndex++;
                     }
 
-                    Debug.Log("Distance: " + Vector3.Distance(marker0, marker1));
+                    // Calculate distance between the 2 unlabeled markers
+                    markerDistance = Vector3.Distance(marker0, marker1);
+                    //Debug.Log("Distance: " + Vector3.Distance(marker0, marker1));
 
                     foreach (LabeledMarker lmk in msg.labeled_markers)
                     {
