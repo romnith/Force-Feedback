@@ -8,11 +8,19 @@ public class MainController : MonoBehaviour {
     private static Transform mHand;
     public bool test;
 
+    private static GameObject controller;// = GameObject.Find("Controller");
+    private static SerialController serialExo;// = controller.GetComponent<SerialController>();
+
     // Use this for initialization
     void Start () {
 
         mDist = 0;
         test = false;
+
+        controller = GameObject.Find("Controller");
+        serialExo = controller.GetComponent<SerialController>();
+        // Detach servo
+        serialExo.dataOut = "300";
 	}
 	
 	// Update is called once per frame
@@ -30,11 +38,13 @@ public class MainController : MonoBehaviour {
         {
             transform.parent = mHand;
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            serialExo.dataOut = "120";
         }
         else
         {
             transform.parent = null;
             this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            serialExo.dataOut = "50";
         }
 	}
 }
