@@ -12,7 +12,7 @@ public class SerialController : MonoBehaviour {
     public bool test;
     public string dataOut, dataLastOut;
 
-    SerialPort stream = new SerialPort("COM3", 9600);
+    SerialPort stream = new SerialPort("COM7", 9600);
 
 
     // Use this for initialization
@@ -72,17 +72,17 @@ public class SerialController : MonoBehaviour {
         stream.BaseStream.Flush();
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name != null)
-        {
-            WriteToArduino("300"); // This works
-            Debug.Log("Contact was made!");
-        }
-        else
-        {
-            WriteToArduino("300"); // This value doesn't work
-            Debug.Log("No contact was made!");
-        }
-    }
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.name != null)
+    //    {
+    //        WriteToArduino("300"); // This works
+    //        Debug.Log("Contact was made!");
+    //    }
+    //    else
+    //    {
+    //        WriteToArduino("300"); // This value doesn't work
+    //        Debug.Log("No contact was made!");
+    //    }
+    //}
 }

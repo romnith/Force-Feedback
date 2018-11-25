@@ -657,7 +657,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1371001003}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4554698f6fc8948fbbab7c7880213d06, type: 3}
   m_Name: 
@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d3868e906d15342b5e52c474db0db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PortName: COM5
+  PortName: COM6
 --- !u!1 &1587247217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1202,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2105229748}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4d5a1cc5979d744f8e008d4aedf7906, type: 3}
   m_Name: 
