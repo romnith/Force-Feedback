@@ -11,10 +11,6 @@ public class openEMSstim : MonoBehaviour
 	private static SerialPort Port;
 	public string PortName = "/dev/tty.wchusbserial1410";
 
-    private static string incomingMsg;
-    public bool test;
-    public string dataOut, dataLastOut;
-
     // Use this for initialization
     public void Start()
 	{
@@ -94,6 +90,7 @@ public class openEMSstim : MonoBehaviour
 		return true;
 	}
 
+    // Never call this, crashes Unity
     public string readMessage()
     {
         string msg = "EMS message out: " + openEMSstim.Port.ReadLine();

@@ -25,9 +25,8 @@ public class MainController : MonoBehaviour {
         serialExo = controller.GetComponent<SerialController>();
         serialEMS = controller.GetComponent<openEMSstim>();
         // Detach servo
-        //serialExo.dataOut = "300";]
+        //serialExo.dataOut = "300";
         emsOn = false;
-        debug = false;
 
     }
 	
@@ -47,16 +46,12 @@ public class MainController : MonoBehaviour {
             transform.parent = mHand;
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             //serialExo.dataOut = "120";
-            //var bytes = System.Text.Encoding.UTF8.GetBytes("1");
-            //serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1"));
-            //serialEMS.dataOut = "1";
-            //serialData = "1";
 
             if (!emsOn)
             {
                 serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1"));
                 emsOn = true;
-                Debug.Log("Turning EMS On");
+                //Debug.Log("Turning EMS On");
             }
         }
         else
@@ -65,21 +60,12 @@ public class MainController : MonoBehaviour {
             this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
             //serialExo.dataOut = "50";
 
-            //serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("0"));
-            //serialEMS.dataOut = "0";
-            //serialData = "1";
-            //Debug.Log("here");
-
             if (emsOn)
             {
                 serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1"));
                 emsOn = false;
-                Debug.Log("Turning EMS Off");
+                //Debug.Log("Turning EMS Off");
             }
-        }
-        if (debug)
-        {
-            Debug.Log(serialEMS.readMessage());
         }
        
 	}
