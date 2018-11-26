@@ -112,6 +112,7 @@ public class MotiveDirect : MonoBehaviour {
     private int ulmIndex = 0;
     Vector3 marker0, marker1;
     public static float markerDistance = 0f;
+    public static bool lostMarker = false;
 
 
     //
@@ -992,7 +993,15 @@ public class MotiveDirect : MonoBehaviour {
 		}
 		int eod;
 		_unpack_head<int>(payload, ref offset, out eod);
-		if(eod != 0) Debug.LogError("End-of-data marker is not 0.");
+        if (eod != 0)
+        {
+            Debug.LogError("End-of-data marker is not 0.");
+            lostMarker = true;
+        }
+        else
+        {
+            lostMarker = false;
+        }
 		fod = new FrameOfData();
 		fod.frameno = frameno;
 		fod.sets = sets;
