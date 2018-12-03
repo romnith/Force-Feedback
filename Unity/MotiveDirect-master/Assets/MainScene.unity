@@ -542,6 +542,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d94410d4a31a64da8c1a531d0a592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mDist: 0
+  mDistLast: 0
+  distBottleHand: 0
+  mDistDiff: 0
   test: 0
   debug: 0
 --- !u!1 &1357083025
@@ -707,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d3868e906d15342b5e52c474db0db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PortName: COM6
+  PortName: COM7
 --- !u!1 &1587247217
 GameObject:
   m_ObjectHideFlags: 0

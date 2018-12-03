@@ -57,60 +57,47 @@ public class MainController : MonoBehaviour {
             Debug.Log(mDist);
         }
 
-        //if (mDist < 0.067 && mDist != 0 && distBottleHand <= 0.15) // TODO: add distance hand-bottle
-        //                                                            //if (test)
-        //{
-        //    transform.parent = mHand;
-        //    this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        //    serialExo.dataOut = "110";
-        //    grabOn = true;
-
-        //    if (!emsOn)
-        //    {
-        //        serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1q")); // Activate Ch1 and send intensity to max
-        //        emsOn = true;
-        //        //Debug.Log("Turning EMS On");
-        //    }
-        //}
-        //else if ((mDistErr || markerErr) && grabOn && mDist != 0)
-        //{
-        //    transform.parent = mHand;
-        //}
-        //else
-        //{
-        //    transform.parent = null;
-        //    this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        //    serialExo.dataOut = "30";
-        //    grabOn = false;
-        //    //Debug.Log(distBottleHand);
-        //    if (emsOn)
-        //    {
-        //        serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1")); // Desactivate EMS Ch1
-        //        emsOn = false;
-        //        //Debug.Log("Turning EMS Off");
-        //    }
-        //}
-
-        if (grabOn) // TODO: add distance hand-bottle
+        if (mDist < 0.067 && mDist != 0 && distBottleHand <= 0.15) // TODO: add distance hand-bottle
+                                                                   //if (test)
         {
-            if(mDist > 0.08 && mDist < 0.15)
+            transform.parent = mHand;
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            serialExo.dataOut = "150";
+            grabOn = true;
+
+            // Avoids sending 2nd message which would desactivate EMS
+            if (!emsOn)
             {
-                grabOn = false;
+                serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1q")); // Activate Ch1 and send intensity to max
+                emsOn = true;
+                //Debug.Log("Turning EMS On");
             }
+        }
+        else if(mDist > 0.1 && mDist < 0.15)
+        {
+            transform.parent = null;
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            serialExo.dataOut = "80";
+            grabOn = false;
+
+            // Avoids sending 2nd message which would activate EMS
+            if (emsOn)
+            {
+                serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1")); // Desactivate EMS Ch1
+                emsOn = false;
+                //Debug.Log("Turning EMS Off");
+            }
+        }
         else
         {
-            if(mDist < 0.066 && mDist > 0.04)
-                {
-                    grabOn = true;
-                }
-        }
-
-        if (grabOn)
+            if (grabOn)
             {
                 transform.parent = mHand;
                 this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                serialExo.dataOut = "110";
+                serialExo.dataOut = "150";
+                grabOn = true;
 
+                // Avoids sending 2nd message which would desactivate EMS
                 if (!emsOn)
                 {
                     serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1q")); // Activate Ch1 and send intensity to max
@@ -118,20 +105,21 @@ public class MainController : MonoBehaviour {
                     //Debug.Log("Turning EMS On");
                 }
             }
-        }
-        else
-        {
-            transform.parent = null;
-            this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            serialExo.dataOut = "30";
-            //Debug.Log(distBottleHand);
-            if (emsOn)
+            else
             {
-                serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1")); // Desactivate EMS Ch1
-                emsOn = false;
-                //Debug.Log("Turning EMS Off");
-            }
+                transform.parent = null;
+                this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                serialExo.dataOut = "80";
+                grabOn = false;
 
+                // Avoids sending 2nd message which would activate EMS
+                if (emsOn)
+                {
+                    serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1")); // Desactivate EMS Ch1
+                    emsOn = false;
+                    //Debug.Log("Turning EMS Off");
+                }
+            }
         }
 
         mDistLast = mDist;

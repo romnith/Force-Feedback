@@ -12,7 +12,7 @@ public class SerialController : MonoBehaviour {
     public bool test;
     public string dataOut, dataLastOut;
 
-    SerialPort stream = new SerialPort("COM7", 9600);
+    SerialPort stream = new SerialPort("COM9", 9600);
 
 
     // Use this for initialization
