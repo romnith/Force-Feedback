@@ -1,3 +1,5 @@
+## Pedro Lopes' openEMSstim Kit info:
+
 #### Navigating the openEMSstim repository:
 
 * [This page = official](https://github.com/PedroLopes/openEMSstim/): your starting point to the official & maintained code.
