@@ -30,10 +30,10 @@ using System.Linq;
 
 public class MotiveDirect : MonoBehaviour {
 	public string multicastIP = "239.255.42.99";
-	public string hostIP = "10.0.1.6";
+	public string hostIP = "127.0.0.1";
 	public int dataPort = 1511;
 	public int commandPort = 1510;
-	public string NatNetVersion = "2.7.0.0";
+	public string NatNetVersion = "2.8.0.0";
 	public static double currentTimestamp = 0.0f;
 
 	public bool showDebugObject = true;
