@@ -12,7 +12,7 @@ public class SerialController : MonoBehaviour {
     public bool test;
     public string dataOut, dataLastOut;
 
-    SerialPort stream = new SerialPort("COM16", 9600);
+    SerialPort stream = new SerialPort("COM17", 9600);
 
 
     // Use this for initialization
@@ -40,14 +40,14 @@ public class SerialController : MonoBehaviour {
                 }
 
                 // Testing values
-                if (test)
-                {
-                    dataOut = "135";
-                }
-                else
-                {
-                    dataOut = "50";
-                }
+                //if (test)
+                //{
+                //    dataOut = "135";
+                //}
+                //else
+                //{
+                //    dataOut = "50";
+                //}
 
                 // Avoid sending same value too many times
                 if (dataOut != dataLastOut)

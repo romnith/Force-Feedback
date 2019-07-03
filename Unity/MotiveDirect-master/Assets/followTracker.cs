@@ -23,7 +23,7 @@ public class followTracker : MonoBehaviour {
 	void Update () {
 
         mTrackedObj = GameObject.Find(trackedObj).transform.position;
-        mTrackedObj = new Vector3(mTrackedObj.z, mTrackedObj.y, - mTrackedObj.x);
+        mTrackedObj = new Vector3(mTrackedObj.x, mTrackedObj.y, mTrackedObj.z);
         this.transform.position = mTrackedObj;
 
         //Debug.Log(mTrackedObj.position);
