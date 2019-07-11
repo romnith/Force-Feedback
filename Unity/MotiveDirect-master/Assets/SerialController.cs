@@ -40,14 +40,14 @@ public class SerialController : MonoBehaviour {
                 }
 
                 // Testing values
-                //if (test)
-                //{
-                //    dataOut = "135";
-                //}
-                //else
-                //{
-                //    dataOut = "50";
-                //}
+                if (test)
+                {
+                    dataOut = "135";
+                }
+                else
+                {
+                    dataOut = "50";
+                }
 
                 // Avoid sending same value too many times
                 if (dataOut != dataLastOut)

@@ -5,8 +5,9 @@ using UnityEngine;
 public class MainController : MonoBehaviour {
 
     public float mDist, mDistLast, distBottleHand, mDistDiff;
-    private static Transform mHand;
+    private static Transform mHand, mThumb1, mThumb2;
     public bool test, debug;
+    public int manualTrigger;
 
     private static GameObject controller;// = GameObject.Find("Controller");
     private static SerialController serialExo;// = controller.GetComponent<SerialController>();
@@ -35,7 +36,7 @@ public class MainController : MonoBehaviour {
 	void Update () {
 
         // Get distance from markers
-        mDist = MotiveDirect.markerDistance;
+        //mDist = MotiveDirect.markerDistance;
         markerErr = MotiveDirect.lostMarker;
         mDistDiff = Mathf.Abs(mDist - mDistLast);
         if (Mathf.Abs(mDist - mDistLast) > 0.01)
@@ -48,16 +49,18 @@ public class MainController : MonoBehaviour {
         }
 
         mHand = GameObject.Find("Hand").transform;
+        mThumb1 = GameObject.Find("trackedThumb1").transform;
+        mThumb2 = GameObject.Find("trackedThumb2").transform;
 
-
+        mDist = Vector3.Distance(mThumb1.transform.position, mThumb2.transform.position);
         distBottleHand = Vector3.Distance(this.transform.position, mHand.transform.position);
 
         if (debug)
         {
             Debug.Log(mDist);
         }
-
-        if (mDist < 0.067 && mDist != 0 && distBottleHand <= 0.15) // TODO: add distance hand-bottle
+        // Old value mDist = 0.067
+        if ((mDist < 0.1 && mDist != 0 && distBottleHand <= 0.15) || manualTrigger == 1) // TODO: add distance hand-bottle
                                                                    //if (test)
         {
             transform.parent = mHand;
@@ -68,12 +71,12 @@ public class MainController : MonoBehaviour {
             // Avoids sending 2nd message which would desactivate EMS
             if (!emsOn)
             {
-                serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1q")); // Activate Ch1 and send intensity to max
+                serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("2e")); // Activate Ch1 and send intensity to max
                 emsOn = true;
                 //Debug.Log("Turning EMS On");
             }
         }
-        else if(mDist > 0.1 && mDist < 0.15)
+        else if((mDist > 0.1 && mDist < 0.15) || manualTrigger == 2) // Old value mDist = 0.2
         {
             transform.parent = null;
             this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -83,7 +86,7 @@ public class MainController : MonoBehaviour {
             // Avoids sending 2nd message which would activate EMS
             if (emsOn)
             {
-                serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1")); // Desactivate EMS Ch1
+                serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("2")); // Desactivate EMS Ch1
                 emsOn = false;
                 //Debug.Log("Turning EMS Off");
             }
@@ -100,7 +103,7 @@ public class MainController : MonoBehaviour {
                 // Avoids sending 2nd message which would desactivate EMS
                 if (!emsOn)
                 {
-                    serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1q")); // Activate Ch1 and send intensity to max
+                    serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("2e")); // Activate Ch1 and send intensity to max
                     emsOn = true;
                     //Debug.Log("Turning EMS On");
                 }
@@ -115,7 +118,7 @@ public class MainController : MonoBehaviour {
                 // Avoids sending 2nd message which would activate EMS
                 if (emsOn)
                 {
-                    serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("1")); // Desactivate EMS Ch1
+                    serialEMS.sendMessage(System.Text.Encoding.UTF8.GetBytes("2")); // Desactivate EMS Ch1
                     emsOn = false;
                     //Debug.Log("Turning EMS Off");
                 }
